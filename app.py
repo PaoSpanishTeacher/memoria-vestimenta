@@ -13,7 +13,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # Código completo del juego
-html_vestimenta = r"""
+html_vestimenta_actualizado = r"""
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -27,7 +27,6 @@ html_vestimenta = r"""
             --secondary: #4cc9f0;
             --accent: #fee440;
             --text-dark: #2b2d42;
-            --card-back: #7209b7;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
@@ -91,7 +90,7 @@ html_vestimenta = r"""
         .card-back::after { content: "🛍️"; font-size: 3rem; filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.1)); }
 
         .card-front { background: #fff9fb; transform: rotateY(180deg); padding: 10px; }
-        .card-word { font-family: 'Fredoka', sans-serif; font-size: 1.3rem; color: var(--primary); font-weight: 600; text-transform: uppercase; text-align: center; }
+        .card-word { font-family: 'Fredoka', sans-serif; font-size: 1.15rem; color: var(--primary); font-weight: 600; text-transform: uppercase; text-align: center; }
         .card-image { font-size: 4.5rem; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1)); }
 
         #feedback-msg {
@@ -155,20 +154,18 @@ html_vestimenta = r"""
     <audio id="sfx-win" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3"></audio>
 
     <script>
-        const CLOTHES = [
-            { w: "Camisa", i: "👔" }, { w: "Pantalón", i: "👖" },
-            { w: "Vestido", i: "👗" }, { w: "Falda", i: "👗" },
-            { w: "Zapatos", i: "👟" }, { w: "Chaqueta", i: "🧥" },
-            { w: "Sombrero", i: "👒" }, { w: "Camiseta", i: "👕" },
-            { w: "Abrigo", i: "🧥" }, { w: "Corbata", i: "👔" }
-        ];
-
-        // Ajuste manual de iconos para evitar duplicados visuales si el sistema lo requiere
-        const DATA = [
-            {w: "Camisa", i: "👔"}, {w: "Pantalón", i: "👖"}, {w: "Vestido", i: "👗"},
-            {w: "Falda", i: "👗"}, {w: "Zapatos", i: "👞"}, {w: "Chaqueta", i: "🧥"},
-            {w: "Sombrero", i: "👒"}, {w: "Camiseta", i: "👕"}, {w: "Abrigo", i: "🧥"},
-            {w: "Corbata", i: "👔"}
+        // DATOS ACTUALIZADOS SEGÚN SOLICITUD (10 PARES ÚNICOS)
+        const CLOTHES_DATA = [
+            { w: "Calcetines", i: "🧦" }, // Cambio: Camisa -> Calcetines
+            { w: "Pantalón", i: "👖" },
+            { w: "Vestido", i: "👗" },
+            { w: "Shorts", i: "🩳" },    // Cambio: Falda -> Shorts
+            { w: "Zapatos", i: "👟" },
+            { w: "Chaqueta", i: "🧥" },
+            { w: "Sombrero", i: "👒" },
+            { w: "Camiseta", i: "👕" },
+            { w: "Bufanda", i: "🧣" },    // Cambio: Abrigo -> Bufanda
+            { w: "Corbata", i: "👔" }
         ];
 
         let flippedCards = [];
@@ -188,7 +185,7 @@ html_vestimenta = r"""
             board.innerHTML = '';
             let deck = [];
             
-            DATA.forEach(item => {
+            CLOTHES_DATA.forEach(item => {
                 deck.push({ type: 'word', value: item.w, pairId: item.w });
                 deck.push({ type: 'img', value: item.i, pairId: item.w });
             });
@@ -236,7 +233,7 @@ html_vestimenta = r"""
                 showFeedback();
                 flippedCards = [];
                 isLock = false;
-                if (matchedCount === DATA.length) endGame();
+                if (matchedCount === CLOTHES_DATA.length) endGame();
             } else {
                 document.getElementById('sfx-error').play().catch(()=>{});
                 setTimeout(() => {
@@ -268,7 +265,7 @@ html_vestimenta = r"""
                 setTimeout(() => {
                     const b = document.createElement('div');
                     b.className = 'balloon';
-                    b.innerHTML = ['🎈', '✨', '👗', '🧥'][Math.floor(Math.random()*4)];
+                    b.innerHTML = ['🎈', '✨', '🧦', '🩳', '🧣'][Math.floor(Math.random()*5)];
                     b.style.left = Math.random() * 90 + 'vw';
                     document.body.appendChild(b);
                     setTimeout(() => b.remove(), 6000);
@@ -297,5 +294,5 @@ html_vestimenta = r"""
 </html>
 """
 
-# Renderizar el componente HTML
-components.html(html_vestimenta, height=900, scrolling=False)
+# Renderizar el componente HTML actualizado
+components.html(html_vestimenta_actualizado, height=900, scrolling=False)
